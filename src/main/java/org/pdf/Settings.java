@@ -12,6 +12,7 @@ public class Settings  extends JPanel {
     JTable table;
     DefaultTableModel model;
 
+
     public  Settings(JPanel contenedorInterfaces, CardLayout controlador){
            this.controlador=controlador;
            this.contenedorInterfaces=contenedorInterfaces;
@@ -30,21 +31,26 @@ public class Settings  extends JPanel {
 
         button.addActionListener(e -> controlador.show(contenedorInterfaces,"windows_login"));
 
-        //**********************
-        //creo la estrutura de la tabla
-        model= new DefaultTableModel();
-        model.addColumn("columna 1");
-        model.addColumn("columna 2");
-        model.addRow(new Object[]{"hola","mundo"});
-        model.addRow(new Object[]{"sero","drako"}); 
 
-        //recién lo añado a la tabla
-        gbc.gridy=1;gbc.gridx=0;gbc.gridwidth=4;
-        gbc.weightx = 1.0;      // Estira horizontalmente al redimensionar
-        gbc.weighty = 1.0;      // Estira verticalmente (se queda con casi todo el espacio)
-        gbc.fill = GridBagConstraints.BOTH; // Rellena todo el espacio asignado
-        gbc.insets = new Insets(10, 10, 10, 10);
+        //creamos el dmodelo
+        model=new DefaultTableModel();
+        model.addColumn("columna 0");
+        model.addColumn("columna 2");
+        model.addColumn("columna 2");
+        model.addRow(new  Object[]{"hola","mundo"});
+        model.addRow(new Object[]{"drako","zero"});
+        model.addRow(new Object[]{"michi","gato"});
+
         table = new JTable(model);
-        add(new JScrollPane(table),gbc);
+        JScrollPane scrollPane = new JScrollPane(table);
+        gbc.gridx=0;gbc.gridy=2;gbc.weighty=1.0;gbc.weightx=1.0;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.gridwidth=2;
+        add(scrollPane,gbc);
+        int valor = model.getRowCount();
+        System.out.println(valor);
+
+        //**********************
+
     }
 }
