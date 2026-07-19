@@ -17,11 +17,11 @@ public class MainPruebas {
         // to see how IntelliJ IDEA suggests fixing it.
 
 
-        String [] matriz = {"hola","mundo"};
+        Object [][] matriz = {{"hola","mundo"},{"zero","drako"}};
 
-        List <String> lista = new ArrayList<>(Arrays.asList(matriz));
-        lista.add("michi");
-        System.out.println(lista);
+        List <Object[]> lista = new ArrayList<>(Arrays.asList(matriz));
+        lista.add(new Object[]{"michi","gato"});
+        System.out.println(lista.get(2)[1]);
 
 
 
