@@ -13,6 +13,7 @@ public class Settings  extends JPanel {
     CardLayout controlador;
     GridBagConstraints gbc;
     JTable table;
+    JComboBox<Object> comboBox;
     DefaultTableModel model;
 
 
@@ -32,14 +33,16 @@ public class Settings  extends JPanel {
         add(btGoLogin);
 
 
-        btGoLogin.addActionListener(e -> controlador.show(contenedorInterfaces,"windows_login"));
-
         JButton btAdd = new JButton("add +");
         gbc.gridy=0;gbc.gridx=2;
         add(btAdd);
-        btAdd.addActionListener(e -> {
-            model.addRow(new Object[]{"ingresar nombre de columna","ingresar regex"});
-        });
+
+        String[] box ={"1","2","3","4","5","6","7","8","9"};
+
+        gbc.gridy=0;gbc.gridx=3;
+        JComboBox comboBox = new JComboBox(box);
+        add(comboBox);
+
 
 
         //creamos el dmodelo
@@ -70,6 +73,12 @@ public class Settings  extends JPanel {
         System.out.println(valor);
 
         //**********************
+        //acciones de botones
+        btAdd.addActionListener(e -> {
+            model.addRow(new Object[]{model.getRowCount(),"ingresar nombre de columna","ingresar regex"});
+             });
+
+        btGoLogin.addActionListener(e -> controlador.show(contenedorInterfaces,"windows_login"));
 
     }
 }
