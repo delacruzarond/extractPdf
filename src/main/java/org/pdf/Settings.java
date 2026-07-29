@@ -25,27 +25,8 @@ public class Settings  extends JPanel {
     }
 
     private void elementos(){
-        gbc= new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
 
-        gbc.gridy=0;gbc.gridx=0;
-        JButton btGoLogin = new JButton("enviar a login");
-        add(btGoLogin);
-
-
-        JButton btAdd = new JButton("add +");
-        gbc.gridy=0;gbc.gridx=2;
-        add(btAdd);
-
-        String[] box ={"1","2","3","4","5","6","7","8","9"};
-
-        gbc.gridy=0;gbc.gridx=3;
-        JComboBox comboBox = new JComboBox(box);
-        add(comboBox);
-
-
-
-        //creamos el dmodelo
+        //creamos el dmodelo el cual solo se crea en memoria para luego isnertar en la tabla
         model=new DefaultTableModel();
         model.addColumn("columna 0");
         model.addColumn("columna 2");
@@ -54,7 +35,7 @@ public class Settings  extends JPanel {
         Object [][] matriz={{"hola","mundo"},{"drako","zero"}};
 //
 
- 
+
 
         for (int i=0;i<matriz.length;++i){
             Object[] temporal= new  Object[3];
@@ -63,6 +44,37 @@ public class Settings  extends JPanel {
             temporal[2]=matriz[i][1];
             model.addRow(temporal);
         }
+
+        gbc= new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+        //botones
+        //boton login
+        gbc.gridy=0;gbc.gridx=0;
+        JButton btGoLogin = new JButton("enviar a login");
+        add(btGoLogin);
+
+        //boton add
+        JButton btAdd = new JButton("add +");
+        gbc.gridy=0;gbc.gridx=2;
+        add(btAdd);
+
+        String[] box = new  String[model.getRowCount()];
+        for(int i=0;i<box.length;i++){
+            box[i]=Integer.toString(i);
+        }
+
+        // boton eliminar
+        JButton btEliminar = new JButton("Eliminar");
+        gbc.gridy=0;gbc.gridx=4;
+        add(btEliminar);
+        // combobox
+        gbc.gridy=0;gbc.gridx=3;
+        JComboBox comboBox = new JComboBox(box);
+        add(comboBox);
+
+
+
+        // creamos la tabla
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         gbc.gridx=0;gbc.gridy=2;gbc.weighty=1.0;gbc.weightx=1.0;
@@ -71,13 +83,23 @@ public class Settings  extends JPanel {
         add(scrollPane,gbc);
         int valor = model.getRowCount();
         System.out.println(valor);
-
-        //**********************
         //acciones de botones
+        //**********************
+        // eliminar filas de la tabla
+        btEliminar.addActionListener(e ->{
+            //String texto = comboBox.getSelectedItem().toString();
+            int valor2 = Integer.parseInt(comboBox.getSelectedItem().toString());
+            model.removeRow(valor2);
+            comboBox.removeItem(valor2);
+        });
+
+
+        // añadir filas
         btAdd.addActionListener(e -> {
             model.addRow(new Object[]{model.getRowCount(),"ingresar nombre de columna","ingresar regex"});
+            comboBox.addItem(model.getRowCount()-1);
              });
-
+        // ir al login
         btGoLogin.addActionListener(e -> controlador.show(contenedorInterfaces,"windows_login"));
 
     }
