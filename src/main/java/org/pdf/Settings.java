@@ -87,10 +87,19 @@ public class Settings  extends JPanel {
         //**********************
         // eliminar filas de la tabla
         btEliminar.addActionListener(e ->{
-            //String texto = comboBox.getSelectedItem().toString();
+            String texto = comboBox.getSelectedItem().toString();
             int valor2 = Integer.parseInt(comboBox.getSelectedItem().toString());
             model.removeRow(valor2);
-            comboBox.removeItem(valor2);
+
+
+            for(int i=0;i<model.getRowCount();i++){
+                model.setValueAt(i,i,0);
+
+
+            }
+            comboBox.removeItem(model.getRowCount());
+            System.out.println(model.getRowCount());
+
         });
 
 
