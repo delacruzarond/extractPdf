@@ -1,8 +1,12 @@
 package org.pdf;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +19,7 @@ public class Settings  extends JPanel {
     JTable table;
     JComboBox<Object> comboBox;
     DefaultTableModel model;
+    File file;;
 
 
     public  Settings(JPanel contenedorInterfaces, CardLayout controlador){
@@ -32,6 +37,7 @@ public class Settings  extends JPanel {
         model.addColumn("columna 2");
         model.addColumn("columna 2");
 
+        // aqui tiene que jalar datos del .json
         Object [][] matriz={{"hola","mundo"},{"drako","zero"}};
 //
 
@@ -73,6 +79,12 @@ public class Settings  extends JPanel {
         add(comboBox);
 
 
+        // boton gauardar
+
+        JButton save = new JButton("Save");
+        gbc.gridy=0;gbc.gridx=5;
+        add(save);
+
 
         // creamos la tabla
         table = new JTable(model);
@@ -108,6 +120,22 @@ public class Settings  extends JPanel {
             model.addRow(new Object[]{model.getRowCount(),"ingresar nombre de columna","ingresar regex"});
             comboBox.addItem(model.getRowCount()-1);
              });
+
+        // guardar datos al json
+        save.addActionListener(e -> {
+
+            System.out.println(model.getRowCount());
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                file = new File("datos.json");
+                mapper.writeValue(file,model.getDataVector());
+
+
+            }catch (IOException exception ){
+                exception.printStackTrace();
+            }
+
+        });
         // ir al login
         btGoLogin.addActionListener(e -> controlador.show(contenedorInterfaces,"windows_login"));
 
