@@ -53,16 +53,24 @@ public class Settings  extends JPanel {
 
         gbc= new GridBagConstraints();
         gbc.insets = new Insets(10,10,10,10);
+
+
+
         //botones
+
+
+
+
         //boton login
-        gbc.gridy=0;gbc.gridx=0;
+        //gbc.gridy=0;gbc.gridx=0;
+
         JButton btGoLogin = new JButton("enviar a login");
-        add(btGoLogin);
+        //add(btGoLogin);
 
         //boton add
         JButton btAdd = new JButton("add +");
-        gbc.gridy=0;gbc.gridx=2;
-        add(btAdd);
+        //gbc.gridy=0;gbc.gridx=2;
+        //add(btAdd);
 
         String[] box = new  String[model.getRowCount()];
         for(int i=0;i<box.length;i++){
@@ -71,27 +79,51 @@ public class Settings  extends JPanel {
 
         // boton eliminar
         JButton btEliminar = new JButton("Eliminar");
-        gbc.gridy=0;gbc.gridx=4;
-        add(btEliminar);
+        //gbc.gridy=0;gbc.gridx=4;
+        //add(btEliminar);
         // combobox
-        gbc.gridy=0;gbc.gridx=3;
+        //gbc.gridy=0;gbc.gridx=3;
         JComboBox comboBox = new JComboBox(box);
-        add(comboBox);
+        //add(comboBox);
 
 
         // boton gauardar
 
         JButton save = new JButton("Save");
-        gbc.gridy=0;gbc.gridx=5;
-        add(save);
+        //gbc.gridy=0;gbc.gridx=5;
+        //add(save);
 
+        JPanel panelBotones = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcBotones= new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.weighty = 0.0;
+        add(panelBotones,gbc);
+
+
+        gbcBotones.gridx = 0;
+        panelBotones.add(btGoLogin,gbcBotones);
+
+        gbcBotones.gridx = 1;
+        panelBotones.add(btAdd,gbcBotones);
+
+        gbcBotones.gridx = 2;
+        panelBotones.add(btEliminar,gbcBotones);
+
+        gbcBotones.gridx = 3;
+        panelBotones.add(comboBox,gbcBotones);
+
+        gbcBotones.gridx = 4;
+        panelBotones.add(save,gbcBotones);
 
         // creamos la tabla
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
-        gbc.gridx=0;gbc.gridy=2;gbc.weighty=1.0;gbc.weightx=1.0;
+        gbc.gridx=0;gbc.gridy=1;gbc.weighty=1.0;gbc.weightx=1.0;
         gbc.fill=GridBagConstraints.BOTH;
-        gbc.gridwidth=2;
+        gbc.gridwidth=3;
         add(scrollPane,gbc);
         int valor = model.getRowCount();
         System.out.println(valor);
